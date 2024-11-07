@@ -10,5 +10,13 @@ h3{
 }
 .info a{
 font-size: 22px;
+}
 
+
+
+@font-face {
+  font-family: 'poppins';
+  src: url('./assets/fonts/poppins.regular\ \(1\).ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

@@ -6,12 +6,11 @@ import { BiPhone, BiMapPin } from 'react-icons/bi'; // Import phone and location
 
 function Footer() {
   return (
-    <footer className="bg-[#034C2C] text-white pt-10 h-fit">
+    <footer className="bg-[#e8e2d5] text-black pt-10 h-fit">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Brand Logo and Description */}
-        <div className="flex flex-col items-center">
-          <img src="https://riyawansilver.com/wp-content/uploads/2023/04/logo-1.png" className='object-cover h-[80px]' alt="Rizwan Silver Garlic Logo" />
-          <p className="text-[20px] w-[70%]">
+        <div className="flex flex-col items-center gap-4 ">
+          <p className="text-[20px] w-[70%] border-2 border-black px-2 py-1 rounded-md">
           Founder of Riyawan Silver Garlic brand. We work as non profit organization that helps farmers at every step to grow a best product. We help them sowing to selling there products.
           </p>
         </div>
@@ -49,22 +48,22 @@ function Footer() {
             </a>
           </p>
           <div className="flex space-x-4 mt-4">
-            <a href="https://www.facebook.com/kapil.dhakad143?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full">
+            <a href="https://www.facebook.com/kapil.dhakad143?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" className="p-2 bg-black rounded-full">
               <FaFacebook className="h-6 w-6 text-[#ABBA7C]" />
             </a>
-            <a href="https://www.instagram.com/krishijankar/?igshid=ZDdkNTZiNTM%3D" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full">
+            <a href="https://www.instagram.com/krishijankar/?igshid=ZDdkNTZiNTM%3D" target="_blank" rel="noopener noreferrer" className="p-2 bg-black rounded-full">
               <FaInstagram className="h-6 w-6 text-[#ABBA7C]" />
             </a>
-            <a href="https://x.com/Kapildhakad8?t=i1XLtkxYxP2-Sd-jJUTa7A&s=09&mx=2" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full">
+            <a href="https://x.com/Kapildhakad8?t=i1XLtkxYxP2-Sd-jJUTa7A&s=09&mx=2" target="_blank" rel="noopener noreferrer" className="p-2 bg-black rounded-full">
               <FaTwitter className="h-6 w-6 text-[#ABBA7C]" />
             </a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full">
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-black rounded-full">
               <FaLinkedin className="h-6 w-6 text-[#ABBA7C]" />
             </a>
           </div>
         </div>
       </div>
-      <div className="text-center mt-10 py-4 bg-green-800">
+      <div className="text-center text-white mt-10 py-4 bg-black">
         <p>&copy; {new Date().getFullYear()} Rizwan Silver Garlic. All rights reserved.</p>
       </div>
     </footer>

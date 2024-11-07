@@ -12,6 +12,11 @@ export default {
       height: {
         'calc-header': 'calc(100% - 100px)', // For example, for a full-screen height minus a header
       },
+       fontFamily: {
+        poppins: ['poppins', 'sans-serif'],
+        
+        
+      },
 
     },
   },
