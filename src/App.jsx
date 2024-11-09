@@ -9,22 +9,22 @@ import Home from "./Components/Home/Home"
 import About from './Components/About';
 import ProductDetails from './Components/ProductDetails';
 import PlaceOrder from './Components/PlaceOrder';
+import Cart from './Components/Cart';
 
 
 const App = () => {
   return (
-    
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/products" element={<AllProducts />} />
-        <Route path="/blogs" element={<AllBlogs />} />
-        <Route path="/videos" element={<AllVideos />} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/place-order/:id" element={<PlaceOrder />} />
-      </Routes>
-    
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/products" element={<AllProducts />} />
+      <Route path="/blogs" element={<AllBlogs />} />
+      <Route path="/videos" element={<AllVideos />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/products/:id" element={<ProductDetails />} />
+      <Route path="/place-order/:id" element={<PlaceOrder />} />
+      <Route path="/Cart" element={<Cart />} />
+    </Routes>
   );
 }
 

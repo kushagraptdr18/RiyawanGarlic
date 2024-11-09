@@ -11,7 +11,9 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+        const response = await axios.get(
+          `http://localhost:8080/api/product/${id}`
+        );
         setProduct(response.data);
       } catch (error) {
         console.error('Error fetching product details:', error);
@@ -40,15 +42,22 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
           {/* Left Column: Product Image */}
           <div className="bg-white rounded-lg shadow-md p-2 flex items-center justify-center">
-            <img src={product.image} alt={product.title} className="h-80 object-cover rounded-md" />
+            <img
+              src={`http://localhost:8080/api/product/${product.id}/image`}
+              alt={product.name}
+              className="w-full h-48 object-cover"
+            />
           </div>
 
           {/* Right Column: Product Details */}
           <div className="bg-white rounded-lg shadow-md p-4 flex flex-col justify-between">
             <div>
-              <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
-              <p className="text-gray-600 text-sm mb-3">{product.description}</p>
+              <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
+              <p className="text-gray-600 text-sm mb-3">
+                {product.description}
+              </p>
               <p className="text-xl font-semibold mb-4">${product.price}</p>
+              <p>Stock Available :{product.quantity}</p>
             </div>
             <div className="flex space-x-3">
               <button className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 transition">
@@ -61,19 +70,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Related Products Section */}
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-4">Related Products</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {relatedProducts.map((relatedProduct) => (
-              <div key={relatedProduct.id} className="bg-white rounded-lg shadow-md p-2 flex flex-col items-center">
-                <img src={relatedProduct.image} alt={relatedProduct.title} className="h-32 object-cover mb-2 rounded" />
-                <h3 className="text-sm font-medium text-center">{relatedProduct.title}</h3>
-                <p className="text-gray-600 text-sm">${relatedProduct.price}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+       
       </div>
     </div>
   );
