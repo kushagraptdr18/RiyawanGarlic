@@ -10,6 +10,10 @@ import About from './Components/About';
 import ProductDetails from './Components/ProductDetails';
 import PlaceOrder from './Components/PlaceOrder';
 import Cart from './Components/Cart';
+import OrderPage from './Components/OrderPage';
+import AdminPannel from './Components/Admin/AdminPannel';
+import ViewProducts from './Components/Admin/ViewProducts';
+import AddProduct from './Components/Admin/AddProduct';
 
 
 const App = () => {
@@ -24,6 +28,14 @@ const App = () => {
       <Route path="/products/:id" element={<ProductDetails />} />
       <Route path="/place-order/:id" element={<PlaceOrder />} />
       <Route path="/Cart" element={<Cart />} />
+      <Route path="/order" element={<OrderPage/>} />
+      <Route path="/admin" element={<AdminPannel/>} />
+      <Route path="/admin/viewProducts" element={<ViewProducts/>} />
+      <Route path="/admin/addProduct" element={<AddProduct/>} />
+
+
+
+
     </Routes>
   );
 }

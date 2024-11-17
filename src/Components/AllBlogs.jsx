@@ -27,42 +27,7 @@ const AllBlogs = () => {
       content: "लहसुन में एंटीऑक्सीडेंट होते हैं जो त्वचा को चमकदार और बालों को मजबूत बनाते हैं।",
       image: "https://tse3.mm.bing.net/th?id=OIP.XZhnu3pZWKccWaTu_5faqAHaE6&pid=Api&P=0&h=180"
     },
-    {
-      id: 5,
-      title: "लहसुन से रोग प्रतिरोधक क्षमता में सुधार",
-      content: "लहसुन के नियमित सेवन से इम्यून सिस्टम मजबूत होता है।",
-      image: "https://tse3.mm.bing.net/th?id=OIP.a3VX9S27i1EhK1l8ktwI-QHaEK&pid=Api&P=0"
-    },
-    {
-      id: 6,
-      title: "लहसुन का तेल और उसके उपयोग",
-      content: "लहसुन का तेल बालों और त्वचा के लिए फायदेमंद होता है।",
-      image: "https://tse1.mm.bing.net/th?id=OIP.bGFHx4FwNsXZC7GACUHoJgHaEK&pid=Api&P=0"
-    },
-    {
-      id: 7,
-      title: "लहसुन और सर्दी-जुकाम",
-      content: "सर्दी और जुकाम के इलाज में लहसुन एक प्रमुख औषधि है।",
-      image: "https://tse1.mm.bing.net/th?id=OIP.DUNlS8ybk6fMEoeH3-Mh6wHaHa&pid=Api&P=0"
-    },
-    {
-      id: 8,
-      title: "लहसुन और मधुमेह का उपचार",
-      content: "मधुमेह के उपचार में लहसुन का उपयोग सहायक हो सकता है।",
-      image: "https://tse3.mm.bing.net/th?id=OIP.Nq0-TnEoFV7NRPeWeAzm7QHaE8&pid=Api&P=0"
-    },
-    {
-      id: 9,
-      title: "लहसुन और रक्त संचार",
-      content: "लहसुन के सेवन से रक्त संचार बेहतर होता है।",
-      image: "https://tse4.mm.bing.net/th?id=OIP.mY4R-NhsgTeBmE3fxeupUgHaEK&pid=Api&P=0"
-    },
-    {
-      id: 10,
-      title: "लहसुन के एंटीबैक्टीरियल गुण",
-      content: "लहसुन में प्राकृतिक एंटीबैक्टीरियल गुण होते हैं।",
-      image: "https://tse1.mm.bing.net/th?id=OIP.9Z_gvR6DkZ_FmGPZm5gQ8gHaE8&pid=Api&P=0"
-    }
+   
   ];
 
 

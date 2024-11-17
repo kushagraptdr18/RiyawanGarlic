@@ -42,7 +42,9 @@ function Videos() {
         ))}
       </div>
 
-      <button className='border border-white bg-[#034C2C] text-white text-2xl px-4 py-2 rounded-full mt-10  mb-10 w-[250px] '>View More <i class="ri-arrow-right-line"></i> </button>
+     <a href="/videos">
+     <button className='border border-white bg-[#034C2C] text-white text-2xl px-4 py-2 rounded-full mt-10  mb-10 w-[250px] '>View More <i class="ri-arrow-right-line"></i> </button>
+     </a>
 
     </section>
   );

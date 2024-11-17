@@ -1,152 +1,162 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Home/Navbar";
 import axiosInstance from "./utils/axiosInstance";
+import Navbar from "./Home/Navbar";
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]); // Initialize as an empty array
+  const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Fetch cart items from API
-  const fetchCartItems = async () => {
+  const fetchCart = async () => {
     try {
       setLoading(true);
       const response = await axiosInstance.get("/cart");
-      console.log(response);
-      
-      setCartItems(response.data || []); // Ensure cartItems is always an array
+
+      // Correctly map over items and fetch images
+      const updatedCartItems = await Promise.all(
+        response.data.items.map(async (item) => {
+          try {
+            const imageResponse = await axiosInstance.get(
+              `/product/${item.productId}/image`,
+              { responseType: "blob" }
+            );
+            const imageUrl = URL.createObjectURL(imageResponse.data);
+            return { ...item, imageUrl };
+          } catch (imageError) {
+            console.error(`Error fetching image for product ${item.productId}:`, imageError);
+            return { ...item, imageUrl: null };
+          }
+        })
+      );
+
+      setCart({ ...response.data, items: updatedCartItems });
     } catch (error) {
-      console.error("Error fetching cart items:", error);
+      console.error("Error fetching cart:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle quantity increase
-  const handleIncrease = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
+  const handleIncrease = async (itemId) => {
+    try {
+      const item = cart.items.find((item) => item.productId === itemId);
+      if (item) {
+        const newQuantity = item.quantity + 1;
+        const url = `/cart?productId=${itemId}&quantity=${newQuantity}`;
+        await axiosInstance.put(url);
+        await fetchCart();
+      }
+    } catch (error) {
+      console.error("Error increasing quantity:", error);
+    }
   };
 
-  // Handle quantity decrease
-  const handleDecrease = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
+  const handleDecrease = async (itemId) => {
+    try {
+      const item = cart.items.find((item) => item.productId === itemId);
+      if (item) {
+        const newQuantity = Math.max(item.quantity - 1, 1); // Ensure quantity doesn't go below 1
+        const url = `/cart?productId=${itemId}&quantity=${newQuantity}`;
+        await axiosInstance.put(url);
+        await fetchCart();
+      }
+    } catch (error) {
+      console.error("Error decreasing quantity:", error);
+    }
   };
 
-  // Handle item removal
-  const handleRemove = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  const handleRemove = async (itemId) => {
+    try {
+      const url = `/cart?productId=${itemId}`;
+      await axiosInstance.delete(url);
+      await fetchCart();
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
   };
 
-  // Handle placing an order (this should ideally be linked to another API call)
   const handlePlaceOrder = async () => {
     try {
-      await axiosInstance.post("/order", { items: cartItems });
-      alert("Order placed successfully!");
-      setCartItems([]); // Clear the cart after order
+      const response = await axiosInstance.post("/order");
+      if (response.data) {
+        navigate("/order", { state: { orderDetails: response.data } });
+      }
     } catch (error) {
       console.error("Error placing the order:", error);
     }
   };
 
   useEffect(() => {
-    fetchCartItems();
+    fetchCart();
   }, []);
 
-  // Loading state
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
-    );
-  }
+  if (loading) return <div>Loading...</div>;
+  if (!cart) return <div>Cart is empty.</div>;
 
-  // Calculate total price
-  const totalPrice = Array.isArray(cartItems)
-    ? cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-    : 0;
+  const totalPrice = cart.items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   return (
-    <div className="container mb-10">
+    <div className="container flex flex-col items-center gap-17">
       <Navbar />
-      <div className="grid grid-cols-3 gap-10">
-        {/* Left side: Cart items list */}
-        <div className="col-span-2">
-          {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
-          ) : (
-            cartItems.map((item) => (
-              <div key={item.id} className="flex items-center mb-4">
-                {/* Product Image */}
-                <img
-                  src={item.productImage}
-                  alt={item.productName}
-                  className="w-20 h-20 object-cover mr-4"
-                />
-                {/* Product Details */}
-                <div className="flex-1">
-                  <h3 className="font-semibold">{item.productName}</h3>
-                  <p className="text-gray-500">{item.description}</p>
-                </div>
-                {/* Quantity Controls */}
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => handleDecrease(item.id)}
-                    className="px-3 py-1 bg-gray-200 rounded"
-                  >
-                    -
-                  </button>
-                  <span>{item.quantity}</span>
-                  <button
-                    onClick={() => handleIncrease(item.id)}
-                    className="px-3 py-1 bg-gray-200 rounded"
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={() => handleRemove(item.id)}
-                    className="ml-4 text-red-500"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+     
+      <div className="w-[80%]">
+      <h2 className="text-2xl font-bold mb-6 mt-14 p-6">Your Cart</h2>
 
-        {/* Right side: Price Summary */}
-        <div className="bg-gray-100 p-4 rounded-md">
-          <h3 className="font-semibold text-lg">Price Details</h3>
-          {cartItems.map((item) => (
-            <div key={item.id} className="flex justify-between py-2">
-              <p>{item.productName}</p>
-              <p>
-                ${item.price} x {item.quantity}
-              </p>
-            </div>
-          ))}
-          <div className="flex justify-between py-2 border-t border-b mt-2">
-            <p className="font-semibold">Total</p>
-            <p className="font-semibold">${totalPrice.toFixed(2)}</p>
+      {cart.items.map((item) => (
+        <div
+          key={item.productId}
+          className="flex flex-col bg-[#FDF9E] sm:flex-row items-center mb-6 p-4 bg-white rounded-lg shadow-md space-y-4 sm:space-y-0 sm:space-x-4"
+        >
+          <img
+            src={item.imageUrl || "default-image-url.jpg"} // Provide a default image if imageUrl is null
+            alt={item.productName}
+            className="w-20 h-20 object-cover rounded-lg"
+          />
+          <div className="flex-1 text-center sm:text-left">
+            <h3 className="font-semibold text-lg">{item.productName}</h3>
+            <p className="text-gray-600">Price: ${item.price}</p>
+            <p className="text-gray-600">Total: ${(item.price * item.quantity).toFixed(2)}</p>
+          </div>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => handleDecrease(item.productId)}
+              className="px-4 py-2 bg-gray-300 rounded-full"
+            >
+              -
+            </button>
+            <span className="text-lg font-medium">Quantity: {item.quantity}</span>
+            <button
+              onClick={() => handleIncrease(item.productId)}
+              className="px-4 py-2 bg-gray-300 rounded-full"
+            >
+              +
+            </button>
           </div>
           <button
-            onClick={handlePlaceOrder}
-            className="w-full mt-4 bg-blue-500 text-white py-2 rounded"
+            onClick={() => handleRemove(item.productId)}
+            className="text-red-500 font-semibold"
           >
-            Place Order
+            Remove
           </button>
         </div>
+      ))}
+
+      <div className="mt-6 p-6 bg-[#FDF9EA]  flex flex-col rounded-lg shadow-md">
+        <h3 className="font-bold m text-xl  text-center sm:text-center">Total: ${totalPrice.toFixed(2)}</h3>
+        <button
+          onClick={handlePlaceOrder}
+          className="w-[50%] ml-[28%] mt-4 bg-[#1B5C40] text-white py-3 rounded-lg font-semibold"
+        >
+          Place Order
+        </button>
       </div>
+      </div>
+
+
     </div>
   );
 };

@@ -19,12 +19,6 @@ const blogs = [
     title: "लहसुन का सेवन कैसे करें?",
     content: "लहसुन को कई तरह से खाया जा सकता है, जैसे कच्चा, पका हुआ, या सलाद में। कच्चा लहसुन खाने से अधिक लाभ मिलता है। अगर आप लहसुन का तीखा स्वाद पसंद नहीं करते तो उसे दूध या पानी के साथ भी लिया जा सकता है।",
     image: "https://tse3.mm.bing.net/th?id=OIP.ThpVdCJIsTfX5ZWbloJfmAHaFK&pid=Api&P=0&h=180" // Replace with actual garlic image URL
-  },
-  {
-    id: 4,
-    title: "लहसुन के त्वचा और बालों के लिए लाभ",
-    content: "लहसुन न केवल स्वास्थ्य बल्कि त्वचा और बालों के लिए भी लाभकारी है। इसमें एंटीऑक्सीडेंट होते हैं जो त्वचा को चमकदार और बालों को मजबूत बनाते हैं। लहसुन का तेल बालों में लगाने से बालों का झड़ना कम होता है।",
-    image: "https://tse3.mm.bing.net/th?id=OIP.XZhnu3pZWKccWaTu_5faqAHaE6&pid=Api&P=0&h=180" // Replace with actual garlic image URL
   }
 ];
 
